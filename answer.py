@@ -167,8 +167,6 @@ Reply only with the list of ranked chunk ids, nothing else. Include all the chun
     # order: attribute of RankOrder class to handle the list of chunk ids
     # We need the attribute not the class itself because we want to work with the list of chunk ids
     order = RankOrder.model_validate_json(reply).order
-    # Print list of ranked chunks ids and this gonna appear when run the function
-    print(order)
     # Get the relavant chunk based on id in order
     return [chunks[i - 1] for i in order]
 
