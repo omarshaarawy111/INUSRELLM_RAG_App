@@ -171,9 +171,8 @@ Reply only with the list of ranked chunk ids, nothing else. Include all the chun
     return [chunks[i - 1] for i in order]
 
 # Steps: query ---> query rewriting ---> query expansion ---> query embedding ---> retriever ---> top-k chunks ---> merge chunks ---> reranking ---> top-s chunks ---> RankOrder validation class
-def fetch_context(original_question):
+def fetch_context(original_question, rewritten_question):
     # We use both orginal and rewritten queries for expansion then reranking
-    rewritten_question = rewrite_query(original_question)
     chunks1 = fetch_context_unranked(original_question)
     chunks2 = fetch_context_unranked(rewritten_question)
     # Merge queries
@@ -201,7 +200,7 @@ def answer_question(question: str, history: list[dict] = []) -> tuple[str, list]
     print(query)
     # Query embedding ---> retriever ---> top-k chunks ---> reranking ---> top-s chunks ---> RankOrder validation class
     # Print step
-    chunks = fetch_context(query)
+    chunks = fetch_context(question, query)
     # prompt ---> LLM ---> answer
     messages = make_rag_messages(question, history, chunks)
     response = completion(model=GENERATOR_MODEL, messages=messages)

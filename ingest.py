@@ -5,7 +5,7 @@ from openai import OpenAI
 from dotenv import load_dotenv
 # Use pydantic to create classes and apply validation to make sure about the format of data we return from retrival (schema) and pass it to LLM
 from pydantic import BaseModel, Field
-# This is the chroma database library directyl not through Langchain
+# This is the chroma database library directly not through Langchain
 from chromadb import PersistentClient
 from tqdm import tqdm
 # For LLM abstraction
